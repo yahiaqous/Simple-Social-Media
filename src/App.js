@@ -3,16 +3,16 @@
 import { Box, Toolbar } from '@mui/material';
 
 import Header from './components/Header';
+import Home from './main_pages/Home';
 
 export default function App() {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <Header />
 
-      <Box component='main' sx={{ p: 3 }}>
+      <Box sx={{ p: 3 }}>
         <Toolbar />
-
-        <h1>Hello</h1>
+        <Home />
       </Box>
     </Box>
   );
