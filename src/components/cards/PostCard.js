@@ -14,9 +14,11 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-import UpdatePostDialog from '../dialogs/UpdatePostDialog';
 import CommentCard from './CommentCard';
+import UpdatePostDialog from '../dialogs/UpdatePostDialog';
+import DeletePostDialog from '../dialogs/DeletePostDialog';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,6 +49,7 @@ export default function PostCard(props) {
   };
 
   const [showUpdatePostDialog, setShowUpdatePostDialog] = useState(false);
+  const [showDeletePostDialog, setShowDeletePostDialog] = useState(false);
 
   return (
     <>
@@ -54,6 +57,16 @@ export default function PostCard(props) {
         <UpdatePostDialog
           showUpdatePostDialog={showUpdatePostDialog}
           setShowUpdatePostDialog={setShowUpdatePostDialog}
+          postData={props.postData}
+          postsData={props.postsData}
+          setPostsData={props.setPostsData}
+        />
+      )}
+
+      {showDeletePostDialog && (
+        <DeletePostDialog
+          showDeletePostDialog={showDeletePostDialog}
+          setShowDeletePostDialog={setShowDeletePostDialog}
           postData={props.postData}
           postsData={props.postsData}
           setPostsData={props.setPostsData}
@@ -88,6 +101,11 @@ export default function PostCard(props) {
           {/* Update Post Button */}
           <IconButton onClick={() => setShowUpdatePostDialog(true)}>
             <EditOutlinedIcon />
+          </IconButton>
+
+          {/* Delete Post Button */}
+          <IconButton onClick={() => setShowDeletePostDialog(true)}>
+            <DeleteOutlineOutlinedIcon color='warning' />
           </IconButton>
 
           <ExpandMore

@@ -90,7 +90,7 @@ export default function UpdatePostDialog(props) {
           <Button onClick={() => props.setShowUpdatePostDialog(false)}>
             Cancel
           </Button>
-          <Button type='submit'>Post</Button>
+          <Button type='submit'>Update</Button>
         </DialogActions>
       </form>
     </Dialog>
