@@ -35,7 +35,10 @@ export default function UpdatePostDialog(props) {
       .then((response) => response.json())
       .then((json) => {
         let newArr = [...props.postsData];
-        newArr[props.postData?.id - 1] = json;
+        const index = newArr.findIndex(
+          (item) => item.id === props.postData?.id
+        );
+        newArr[index] = json;
         props.setPostsData(newArr);
 
         props.setShowUpdatePostDialog(false);
