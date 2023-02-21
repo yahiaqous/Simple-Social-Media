@@ -13,7 +13,9 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
+import UpdatePostDialog from '../dialogs/UpdatePostDialog';
 import CommentCard from './CommentCard';
 
 const ExpandMore = styled((props) => {
@@ -44,58 +46,69 @@ export default function PostCard(props) {
     setExpanded(!expanded);
   };
 
+  const [showUpdatePostDialog, setShowUpdatePostDialog] = useState(false);
+
   return (
-    <Card
-      style={{
-        width: '60%',
-        margin: 'auto',
-        marginBottom: '50px',
-        border: '5px black',
-      }}>
-      <CardHeader
-        title={props.postData?.title}
-        subheader={
-          props.usersData?.find((user) => user.id === props.postData?.userId)
-            ?.username +
-          '. ' +
-          props.usersData?.find((user) => user.id === props.postData?.userId)
-            ?.email
-        }
-      />
+    <>
+      {showUpdatePostDialog && (
+        <UpdatePostDialog
+          showUpdatePostDialog={showUpdatePostDialog}
+          setShowUpdatePostDialog={setShowUpdatePostDialog}
+          postData={props.postData}
+          postsData={props.postsData}
+          setPostsData={props.setPostsData}
+        />
+      )}
 
-      <CardContent>
-        <Typography variant='body2' color='text.secondary'>
-          {props.postData?.body}
-        </Typography>
-      </CardContent>
+      <Card
+        style={{
+          width: '60%',
+          margin: 'auto',
+          marginBottom: '50px',
+          border: '5px black',
+        }}>
+        <CardHeader
+          title={props.postData?.title}
+          subheader={
+            props.usersData?.find((user) => user.id === props.postData?.userId)
+              ?.username +
+            '. ' +
+            props.usersData?.find((user) => user.id === props.postData?.userId)
+              ?.email
+          }
+        />
 
-      <CardActions disableSpacing>
-        {/* <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
-        </IconButton>
-
-        <IconButton aria-label='share'>
-          <ShareIcon />
-        </IconButton> */}
-
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'>
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          <Typography paragraph>Comments</Typography>
-
-          {commentsData.map((commentData, idx) => (
-            <CommentCard commentData={commentData} key={idx} />
-          ))}
+          <Typography variant='body2' color='text.secondary'>
+            {props.postData?.body}
+          </Typography>
         </CardContent>
-      </Collapse>
-    </Card>
+
+        <CardActions disableSpacing>
+          {/* Update Post Button */}
+          <IconButton onClick={() => setShowUpdatePostDialog(true)}>
+            <EditOutlinedIcon />
+          </IconButton>
+
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label='show more'>
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+
+        <Collapse in={expanded} timeout='auto' unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Comments</Typography>
+
+            {commentsData.map((commentData, idx) => (
+              <CommentCard commentData={commentData} key={idx} />
+            ))}
+          </CardContent>
+        </Collapse>
+      </Card>
+    </>
   );
 }

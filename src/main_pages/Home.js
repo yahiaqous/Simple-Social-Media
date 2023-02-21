@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-import AddPostDialog from '../components/dialogs/AddPostDialog';
 import AddPostButton from '../components/buttons/AddPostButton';
+import AddPostDialog from '../components/dialogs/AddPostDialog';
 import PostCard from '../components/cards/PostCard';
 
 export default function Home() {
@@ -51,7 +51,13 @@ export default function Home() {
       />
 
       {postsData.map((postData, idx) => (
-        <PostCard key={idx} postData={postData} usersData={usersData} />
+        <PostCard
+          key={idx}
+          postData={postData}
+          postsData={postsData}
+          setPostsData={setPostsData}
+          usersData={usersData}
+        />
       ))}
 
       <div ref={divRef} />
