@@ -60,6 +60,7 @@ export default function PostCard(props) {
           postData={props.postData}
           postsData={props.postsData}
           setPostsData={props.setPostsData}
+          userDetails={props.userDetails}
         />
       )}
 
@@ -98,16 +99,18 @@ export default function PostCard(props) {
         </CardContent>
 
         <CardActions disableSpacing>
-          {/* Update Post Button */}
-          <IconButton onClick={() => setShowUpdatePostDialog(true)}>
-            <EditOutlinedIcon />
-          </IconButton>
-
-          {/* Delete Post Button */}
-          <IconButton onClick={() => setShowDeletePostDialog(true)}>
-            <DeleteOutlineOutlinedIcon color='warning' />
-          </IconButton>
-
+          {props.userDetails?.id === props.postData?.userId && (
+            <>
+              {/* Update Post Button */}
+              <IconButton onClick={() => setShowUpdatePostDialog(true)}>
+                <EditOutlinedIcon />
+              </IconButton>
+              {/* Delete Post Button */}
+              <IconButton onClick={() => setShowDeletePostDialog(true)}>
+                <DeleteOutlineOutlinedIcon color='warning' />
+              </IconButton>
+            </>
+          )}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}

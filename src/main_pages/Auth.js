@@ -56,7 +56,7 @@ export default function Auth() {
       .then((json) => {
         // If the email already exists => Error email already exist
         if (json[0]) {
-          toast.error(`Email ${email} already exist! Login instead.`);
+          toast.error(`Email "${email}" already exist! Login instead.`);
         } else {
           create_new_account(email);
         }
@@ -75,7 +75,7 @@ export default function Auth() {
         .then((response) => response.json())
         .then((json) => {
           toast.success(
-            `Welcome ${json.username ? json.username : json.email}`
+            `Welcome, ${json.username ? json.username : json.email}!`
           );
           document.cookie = `user=${JSON.stringify(json)}`;
 
@@ -96,9 +96,9 @@ export default function Auth() {
       .then((json) => {
         if (json[0]) {
           toast.success(
-            `Welcome Back ${
+            `Welcome Back, ${
               json[0].username ? json[0].username : json[0].email
-            }`
+            }!`
           );
           document.cookie = `user=${JSON.stringify(json[0])}`;
 
@@ -107,7 +107,7 @@ export default function Auth() {
             window.location.assign(window.location.href.replace('/auth', ''));
           }, 2000);
         } else {
-          toast.error(`Email ${email} does not exist! You need to signup.`);
+          toast.error(`Email "${email}" does not exist! You need to signup.`);
         }
       });
   }

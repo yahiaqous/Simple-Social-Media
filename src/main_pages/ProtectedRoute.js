@@ -19,6 +19,9 @@ function getCookie(cname) {
   return '';
 }
 
-export default function ProtectedRoute() {
-  return getCookie('user') ? <Outlet /> : <Navigate to='/auth' />;
+export default function ProtectedRoute(props) {
+  const isAuth = getCookie('user');
+  props.setUserDetails(isAuth);
+
+  return isAuth ? <Outlet /> : <Navigate to='/auth' />;
 }

@@ -20,18 +20,23 @@ export default function UpdatePostDialog(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`https://jsonplaceholder.typicode.com/posts/${props.postData?.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: props.postData?.id,
-        title: document.getElementById('post-title').value,
-        body: document.getElementById('post-body').value,
-        userId: props.postData?.userId,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
+    fetch(
+      `https://jsonplaceholder.typicode.com/posts/${
+        props.postData.id <= 100 ? props.postData.id : 100
+      }`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: props.postData?.id,
+          title: document.getElementById('post-title').value,
+          body: document.getElementById('post-body').value,
+          userId: props.userDetails?.id,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+    )
       .then((response) => response.json())
       .then((json) => {
         let newArr = [...props.postsData];
