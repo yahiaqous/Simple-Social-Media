@@ -25,7 +25,7 @@ Simple Social Media app with Home and Auth pages created using React library and
 ## General Information
 
 - Simple Social Media app displays posts' data and comments provided from the API.
-- Technical assignment requested by Digitinary for the application of **React Developer** position.
+- Technical assignment requested by Digitinary for the application of **Frontend Developer** position.
 
 ### Task Description Provided By Digitinary
 
