@@ -16,11 +16,21 @@ import {
   Toolbar,
   Typography,
   Button,
+  Link,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const drawerWidth = 240;
-const pages = ['Home', 'Login'];
+const pages = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  {
+    name: 'Login',
+    path: '/auth',
+  },
+];
 
 export default function Header(props) {
   const { window } = props;
@@ -40,10 +50,10 @@ export default function Header(props) {
       <Divider />
 
       <List>
-        {pages.map((item) => (
-          <ListItem key={item} disablePadding>
+        {pages.map((page) => (
+          <ListItem key={page.name} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={page.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -76,10 +86,12 @@ export default function Header(props) {
           </Typography>
 
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {pages.map((item) => (
-              <Button key={item} sx={{ color: 'white' }}>
-                {item}
-              </Button>
+            {pages.map((page, key) => (
+              <Link href={page.path} key={key}>
+                <Button key={page.name} sx={{ color: 'white' }}>
+                  {page.name}
+                </Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>

@@ -5,6 +5,8 @@ import { Box, Toolbar } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 
 import Header from './components/Header';
+
+import ProtectedRoute from './main_pages/ProtectedRoute';
 import Home from './main_pages/Home';
 import Auth from './main_pages/Auth';
 
@@ -21,7 +23,12 @@ export default function App() {
 
           {/* Main Pages */}
           <Routes>
-            <Route exact path='/' element={<Home />}></Route>
+            {/* Protected Pages */}
+            <Route element={<ProtectedRoute />}>
+              <Route exact path='/' element={<Home />}></Route>
+            </Route>
+
+            {/* Auth Page */}
             <Route exact path='/auth' element={<Auth />}></Route>
           </Routes>
         </Box>
