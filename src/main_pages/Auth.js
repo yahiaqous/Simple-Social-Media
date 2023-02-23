@@ -51,22 +51,40 @@ export default function Auth() {
     event.preventDefault();
     let email = event.target[0].value;
 
-    fetch('https://jsonplaceholder.typicode.com/users', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
+    fetch(`https://jsonplaceholder.typicode.com/users?email=${email}`)
       .then((response) => response.json())
       .then((json) => {
-        toast.success(`Welcome ${json.username ? json.username : json.email}`);
-        document.cookie = `user=${JSON.stringify(json)}`;
-        // Navigate to Home Page
-        window.location.assign(window.location.href.replace('/auth', ''));
+        // If the email already exists => Error email already exist
+        if (json[0]) {
+          toast.error(`Email ${email} already exist! Login instead.`);
+        } else {
+          create_new_account(email);
+        }
       });
+
+    function create_new_account(email) {
+      fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          toast.success(
+            `Welcome ${json.username ? json.username : json.email}`
+          );
+          document.cookie = `user=${JSON.stringify(json)}`;
+
+          // Navigate to Home Page
+          setTimeout(function () {
+            window.location.assign(window.location.href.replace('/auth', ''));
+          }, 2000);
+        });
+    }
   }
 
   function login(event) {
@@ -78,13 +96,18 @@ export default function Auth() {
       .then((json) => {
         if (json[0]) {
           toast.success(
-            `Welcome ${json.username ? json.username : json.email}`
+            `Welcome Back ${
+              json[0].username ? json[0].username : json[0].email
+            }`
           );
-          document.cookie = `user=${JSON.stringify(json)}`;
+          document.cookie = `user=${JSON.stringify(json[0])}`;
+
           // Navigate to Home Page
-          window.location.assign(window.location.href.replace('/auth', ''));
+          setTimeout(function () {
+            window.location.assign(window.location.href.replace('/auth', ''));
+          }, 2000);
         } else {
-          toast.error('Email does not exist');
+          toast.error(`Email ${email} does not exist! You need to signup.`);
         }
       });
   }
@@ -102,7 +125,7 @@ export default function Auth() {
       </Tabs>
 
       {tabs.map((tab, key) => (
-        <TabPanel value={tabValue} index={key}>
+        <TabPanel value={tabValue} index={key} key={key}>
           <Grid
             container
             spacing={0}
@@ -116,7 +139,6 @@ export default function Auth() {
               <img
                 src={tab.imageLink}
                 alt='login'
-                fluid
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
             </Grid>
