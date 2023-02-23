@@ -2,6 +2,7 @@
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Box, Toolbar } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
 
 import Header from './components/Header';
 import Home from './main_pages/Home';
@@ -16,6 +17,7 @@ export default function App() {
 
         <Box sx={{ p: 3 }}>
           <Toolbar />
+          <ToastContainer hideProgressBar={true} newestOnTop={true} />
 
           {/* Main Pages */}
           <Routes>
