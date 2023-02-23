@@ -6,7 +6,7 @@ import AddPostButton from '../components/buttons/AddPostButton';
 import AddPostDialog from '../components/dialogs/AddPostDialog';
 import PostCard from '../components/cards/PostCard';
 
-export default function Home() {
+export default function Home(props) {
   useEffect(() => {
     getPostsData();
     getUsersData();
@@ -42,6 +42,7 @@ export default function Home() {
           setShowAddPostDialog={setShowAddPostDialog}
           setPostsData={setPostsData}
           navigateBottom={navigateBottom}
+          userDetails={props.userDetails}
         />
       )}
 
@@ -57,6 +58,7 @@ export default function Home() {
           postsData={postsData}
           setPostsData={setPostsData}
           usersData={usersData}
+          userDetails={props.userDetails}
         />
       ))}
 

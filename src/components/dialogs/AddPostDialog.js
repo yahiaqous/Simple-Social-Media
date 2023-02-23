@@ -25,7 +25,7 @@ export default function AddPostDialog(props) {
       body: JSON.stringify({
         title: document.getElementById('post-title').value,
         body: document.getElementById('post-body').value,
-        userId: 1,
+        userId: props.userDetails?.id,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
